@@ -29,7 +29,7 @@ function onTick(){
 
     if (playArea.findAtArray(playArea.xIndexOf("O"), playArea.yIndexOf("O") + 1) != "_") {
         if (playArea.findAtArray(playArea.xIndexOf("O"), playArea.yIndexOf("O") + Math.floor(yVel/5)) != "_") {
-            if (playArea.yIndexOf("O") < playArea.split("\r").length) {
+            if (playArea.yIndexOf("O") < playArea.split(linebreakType).length) {
                 movePlayer(0, Math.floor(yVel/5))
             }
         }
@@ -68,14 +68,14 @@ function onInput(input){
     } else if (playerInput == "s"){
 
     } else if (playerInput == "d"){
-        if (playArea.xIndexOf("O") < playArea.split("\r")[0].length) {
+        if (playArea.xIndexOf("O") < playArea.split(linebreakType)[0].length) {
             movePlayer(1, 0)
         }
     }
 }
 
 String.prototype.xIndexOf = function(value) {
-    var tempArr = this.split("\r")
+    var tempArr = this.split(linebreakType)
     //console.log(tempArr)
     for (let i = 0; i < tempArr.length; i++) {
         if (tempArr[i].includes(value)) {
@@ -85,7 +85,7 @@ String.prototype.xIndexOf = function(value) {
     return
 }
 String.prototype.yIndexOf = function(value) {
-    var tempArr = this.split("\r")
+    var tempArr = this.split(linebreakType)
     //console.log(tempArr)
     for (let i = 0; i < tempArr.length; i++) {
         if (tempArr[i].includes(value)) {
@@ -101,11 +101,11 @@ String.prototype.replaceAt = function(index, replacement) {
 
 String.prototype.replaceAtArray = function(xValue, yValue, replacement) {
     console.log(xValue, yValue, replacement)
-    var tempArr = this.split("\r")
+    var tempArr = this.split(linebreakType)
     tempArr[yValue] = tempArr[yValue].replaceAt(xValue, replacement)
     //var tempArr = 
-    return tempArr.join("\r");
+    return tempArr.join(linebreakType);
 }
 String.prototype.findAtArray = function(xValue, yValue) {
-    return this.split("\r")[yValue][xValue];
+    return this.split(linebreakType)[yValue][xValue];
 }
