@@ -1,10 +1,20 @@
-var inputArea = document.querySelector("#input-area")
-inputArea.addEventListener("input", onInput);
+window.addEventListener('keydown', function (e) {
+  onInput(e.key.toLowerCase())
+}, false);
 
-function onInput(){
+/*setInterval(onTick, 100);
+
+var xAcc = 0
+var yAcc = 0
+var gravity = -1
+var xVel = 0
+var yVel = 0*/
+
+function onInput(input){
     var playArea = document.querySelector("#play-area").textContent
     //console.log(playArea)
-    playerInput = inputArea.value.toLowerCase()
+    playerInput = input
+    console.log(input)
 
     if (playerInput == "w") {
         console.log(playerInput)
@@ -25,9 +35,12 @@ function onInput(){
     }
 
     document.querySelector("#play-area").textContent = playArea
-
-    inputArea.value = ""
 }
+
+function onTick(){
+
+}
+
 String.prototype.xIndexOf = function(value) {
     var tempArr = this.split("\r")
     //console.log(tempArr)
