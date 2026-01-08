@@ -1,4 +1,6 @@
 var linebreakType = ""
+var currentLevel = "level1"
+var levelList = ["level1", "level2", "level3"] //hardcoded
 
 function fileFound(t){
     document.querySelector("#play-area").textContent = t

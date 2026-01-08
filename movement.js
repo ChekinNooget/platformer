@@ -32,15 +32,20 @@ function onTick(){
         }
     }
 
-    if (playArea.yIndexOf("O") >= 12) { //hardcoded
-        setupLevel("level1") //hardcoded
+    if (playArea.yIndexOf("O") >= playArea.split(linebreakType).length - 4) { //hardcoded
+        setupLevel(currentLevel)
         yAcc = 0
         yVel = 0
     }
 
-    if (!playArea.includes("F")){ //fix this
-        document.querySelector("#play-area").textContent = `you win, refresh to play again`
-        clearInterval(gameInterval)
+    if (!playArea.includes("F")){
+        if (levelList.indexOf(currentLevel) < levelList.length - 1) {
+            currentLevel = levelList[levelList.indexOf(currentLevel) + 1]
+            setupLevel(currentLevel)
+        } else {
+            document.querySelector("#play-area").textContent = `you win, refresh to play again`
+            clearInterval(gameInterval)
+        }
     }
 }
 
