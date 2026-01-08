@@ -2,7 +2,7 @@ window.addEventListener('keydown', function (e) {
   onInput(e.key.toLowerCase())
 }, false);
 
-setInterval(onTick, 100);
+var gameInterval = setInterval(onTick, 100);
 
 var xAcc = 0
 var yAcc = 0
@@ -16,7 +16,7 @@ function onTick(){
     if (playArea.findAtArray(playArea.xIndexOf("O"), playArea.yIndexOf("O") + 1) == "_") {
         yAcc = 0
         yVel = 0
-    } else{
+    } else {
         yAcc = gravity
         yVel -= yAcc
         if (yVel > 50) {
@@ -30,6 +30,17 @@ function onTick(){
                 movePlayer(0, Math.floor(yVel/5))
             }
         }
+    }
+
+    if (playArea.yIndexOf("O") >= 12) { //hardcoded
+        setupLevel("level1") //hardcoded
+        yAcc = 0
+        yVel = 0
+    }
+
+    if (!playArea.includes("F")){ //fix this
+        document.querySelector("#play-area").textContent = `you win, refresh to play again`
+        clearInterval(gameInterval)
     }
 }
 
