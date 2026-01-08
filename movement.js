@@ -9,7 +9,7 @@ function onInput(){
     if (playerInput == "w") {
         console.log(playerInput)
     } else if (playerInput == "a"){
-        if (playArea.xIndexOf("O") > 0) {
+        if (playArea.xIndexOf("O") > 1) {
             playArea = playArea.replaceAtArray(playArea.xIndexOf("O"), playArea.yIndexOf("O"), "o")
             playArea = playArea.replaceAtArray(playArea.xIndexOf("o")-1, playArea.yIndexOf("o"), "O")
             playArea = playArea.replaceAtArray(playArea.xIndexOf("o"), playArea.yIndexOf("o"), ".")
