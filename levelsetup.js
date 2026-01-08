@@ -3,8 +3,6 @@ var linebreakType = ""
 function fileFound(t){
     document.querySelector("#play-area").textContent = t
 
-    console.log(document.querySelector("#play-area").textContent)
-
     if (document.querySelector("#play-area").textContent.includes("\r")){
         linebreakType = "\r"
     } else if (document.querySelector("#play-area").textContent.includes("\n")){
