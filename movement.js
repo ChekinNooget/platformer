@@ -2,13 +2,49 @@ window.addEventListener('keydown', function (e) {
   onInput(e.key.toLowerCase())
 }, false);
 
-/*setInterval(onTick, 100);
+setInterval(onTick, 100);
 
 var xAcc = 0
 var yAcc = 0
 var gravity = -1
 var xVel = 0
-var yVel = 0*/
+var yVel = 0
+
+function onTick(){
+    var playArea = document.querySelector("#play-area").textContent
+
+    if (playArea.findAtArray(playArea.xIndexOf("O"), playArea.yIndexOf("O") + 1) == "_") {
+        yAcc = 0
+        yVel = 0
+    } else{
+        yAcc = gravity
+        yVel -= yAcc
+    }
+    
+    console.log(yAcc, yVel)
+
+
+    if (playArea.findAtArray(playArea.xIndexOf("O"), playArea.yIndexOf("O") + 1) != "_") {
+        if (playArea.findAtArray(playArea.xIndexOf("O"), playArea.yIndexOf("O") + Math.floor(yVel/5)) != "_") {
+            if (playArea.yIndexOf("O") < playArea.split("\r").length) {
+                movePlayer(0, Math.floor(yVel/5))
+            }
+        }
+    }
+}
+
+function movePlayer(x, y){
+    var playArea = document.querySelector("#play-area").textContent
+
+    
+    playArea = playArea.replaceAtArray(playArea.xIndexOf("O"), playArea.yIndexOf("O"), "o")
+    playArea = playArea.replaceAtArray(playArea.xIndexOf("o") + x, playArea.yIndexOf("o") + y, "O")
+    if (playArea.includes("o")) {        
+        playArea = playArea.replaceAtArray(playArea.xIndexOf("o"), playArea.yIndexOf("o"), ".")
+    }
+
+    document.querySelector("#play-area").textContent = playArea
+}
 
 function onInput(input){
     var playArea = document.querySelector("#play-area").textContent
@@ -18,27 +54,21 @@ function onInput(input){
 
     if (playerInput == "w") {
         console.log(playerInput)
+        if (playArea.findAtArray(playArea.xIndexOf("O"), playArea.yIndexOf("O") + 1) == "_") {
+            yVel = -5
+            movePlayer(0, -1)
+        }
     } else if (playerInput == "a"){
         if (playArea.xIndexOf("O") > 1) {
-            playArea = playArea.replaceAtArray(playArea.xIndexOf("O"), playArea.yIndexOf("O"), "o")
-            playArea = playArea.replaceAtArray(playArea.xIndexOf("o")-1, playArea.yIndexOf("o"), "O")
-            playArea = playArea.replaceAtArray(playArea.xIndexOf("o"), playArea.yIndexOf("o"), ".")
+            movePlayer(-1, 0)
         }
     } else if (playerInput == "s"){
 
     } else if (playerInput == "d"){
         if (playArea.xIndexOf("O") < playArea.split("\r")[0].length) {
-            playArea = playArea.replaceAtArray(playArea.xIndexOf("O"), playArea.yIndexOf("O"), "o")
-            playArea = playArea.replaceAtArray(playArea.xIndexOf("o")+1, playArea.yIndexOf("o"), "O")
-            playArea = playArea.replaceAtArray(playArea.xIndexOf("o"), playArea.yIndexOf("o"), ".")
+            movePlayer(1, 0)
         }
     }
-
-    document.querySelector("#play-area").textContent = playArea
-}
-
-function onTick(){
-
 }
 
 String.prototype.xIndexOf = function(value) {
@@ -62,13 +92,16 @@ String.prototype.yIndexOf = function(value) {
     return
 }
 
+String.prototype.replaceAt = function(index, replacement) {
+    return this.substring(0, index) + replacement + this.substring(index + replacement.length);
+}
+
 String.prototype.replaceAtArray = function(xValue, yValue, replacement) {
     var tempArr = this.split("\r")
     tempArr[yValue] = tempArr[yValue].replaceAt(xValue, replacement)
     //var tempArr = 
     return tempArr.join("\r");
 }
-
-String.prototype.replaceAt = function(index, replacement) {
-    return this.substring(0, index) + replacement + this.substring(index + replacement.length);
+String.prototype.findAtArray = function(xValue, yValue) {
+    return this.split("\r")[yValue][xValue];
 }
