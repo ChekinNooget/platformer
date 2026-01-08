@@ -19,6 +19,9 @@ function onTick(){
     } else{
         yAcc = gravity
         yVel -= yAcc
+        if (yVel > 50) {
+            yVel = 15
+        }
     }
     
     console.log(yAcc, yVel)
@@ -97,6 +100,7 @@ String.prototype.replaceAt = function(index, replacement) {
 }
 
 String.prototype.replaceAtArray = function(xValue, yValue, replacement) {
+    console.log(xValue, yValue, replacement)
     var tempArr = this.split("\r")
     tempArr[yValue] = tempArr[yValue].replaceAt(xValue, replacement)
     //var tempArr = 
