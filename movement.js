@@ -72,13 +72,13 @@ function onInput(input){
             movePlayer(0, -1)
         }
     } else if (playerInput == "a"){
-        if (playArea.xIndexOf("O") > 1) {
+        if (playArea.xIndexOf("O") > 0) {
             movePlayer(-1, 0)
         }
     } else if (playerInput == "s"){
 
     } else if (playerInput == "d"){
-        if (playArea.xIndexOf("O") < playArea.split(linebreakType)[0].length) {
+        if (playArea.xIndexOf("O") < playArea.split(linebreakType)[0].length - 2) {
             movePlayer(1, 0)
         }
     }
